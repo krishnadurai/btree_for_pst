@@ -1,0 +1,23 @@
+About the BTree used by PST File Format:
+
+Entries:
+
+	Nodes contain entries in their entry bucket. They are key-value pairs of fixed size.
+
+Nodes:
+
+	There are 2 types of nodes: Intermediate and Leaf Nodes. These nodes might have different entry sizes, i.e. intermediate entries may be of different size than that of leaf entries. Intermediate entries contain a reference to a child node.
+	
+Properties of Intermediate Entries:
+
+	The a key contained by an intermediate entry is the first key of the child node it refers to.
+
+BTree Recommended behaviour:
+	
+	The node entry bucket of the BTree is recommended to be filled to a maximum of 90% its capacity.
+	
+Conclusions:
+	
+	1) Number of keys is maintained equal to the number of values.
+	2) A root node MUST have at least 2 entries if it is an intermediate node.
+	3) A BTree has to be consistent such that every parent node contains the key of the first entry of the child node it points to.

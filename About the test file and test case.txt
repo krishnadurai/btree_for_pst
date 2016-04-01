@@ -1,0 +1,54 @@
+About the test file ('test.pst') and test case:
+
+'test.pst' contains a BTree represented in the figure 'BTree.png'.
+
+Note: All fields are in Little-Endian format.
+
+The first four bytes in the file contains the counter for node allocation.
+The next four bytes contains the address of the root.
+The following bytes contain the data associated with the nodes in BTree.
+
+'test.pst' BTree properties:
+
+	'entrySize' Size of intermediate entry: 8 bytes
+	'leafEntrySize' Size of leaf entry: 12 bytes
+	'nodeEntrySize' Size or number of bytes of node reserved for entries: 60 bytes
+	'nodeMetaData' Offset of node meta-data from the node's start (in terms of bytes): 60
+	'nodeSize' Size of node: 64 bytes
+	'keySize' Size of key: 4 bytes
+	
+Structure of Intermediate Entry:
+
+	First four bytes: key
+	Next four bytes: child node reference
+	
+Structure of Leaf Entry:
+	
+	First four bytes: key
+	Next eight bytes: value
+	
+Structure of Node:
+	
+	First 60 bytes: Entry Bucket.
+	
+	The last four bytes are for node meta-data
+	61st byte: Number of entries in current node.
+	62nd byte: Maximum number of nodes in current node.
+	63rd byte: Size of entry in current node.
+	64th byte: BTree level of the current node.
+
+Note about BTree implementation:
+
+	It is recommended that the node entry bucket SHOULD be used to a maximum of 90% its capacity. This BTree implementation enforces this constraint on its nodes.
+	
+About the image 'BTree.png':
+
+	The image shows a schematic representation of the BTree stored in the file 'test.pst'. The values in red indicate the location of the node in file. The values in black indicate the keys in node.
+	
+Allocation of Nodes:
+
+	Every new node requested is given a 64 byte allocation from the location value stared in the first four bytes in the file, which is updated immediately after allocation.
+	
+Deletion of Nodes:
+	
+	Every deleted node is indicated by setting the value of the first four bytes to '0xFFFFFFFF'.
